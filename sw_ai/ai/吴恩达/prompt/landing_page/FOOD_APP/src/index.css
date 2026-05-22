@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  --color-orange-500: #FF6B35;
+  --color-orange-600: #E85D2C;
+  --color-orange-700: #D14F20;
+  --color-orange-50: #FFF5F0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

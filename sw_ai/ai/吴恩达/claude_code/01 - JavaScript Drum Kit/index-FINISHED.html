@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Drum Kit</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://fav.farm/✅" />
+</head>
+<body>
+
+  <div class="controls">
+    <button id="record-btn">⏺ Record</button>
+    <button id="play-btn" disabled>▶ Play</button>
+    <span id="recording-dot" class="recording-dot hidden"></span>
+  </div>
+
+  <div class="keys">
+    <div data-key="65" class="key">
+      <kbd>A</kbd>
+      <span class="sound">clap</span>
+    </div>
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="sound">hihat</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="sound">kick</span>
+    </div>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="sound">openhat</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="sound">boom</span>
+    </div>
+    <div data-key="72" class="key">
+      <kbd>H</kbd>
+      <span class="sound">ride</span>
+    </div>
+    <div data-key="74" class="key">
+      <kbd>J</kbd>
+      <span class="sound">snare</span>
+    </div>
+    <div data-key="75" class="key">
+      <kbd>K</kbd>
+      <span class="sound">tom</span>
+    </div>
+    <div data-key="76" class="key">
+      <kbd>L</kbd>
+      <span class="sound">tink</span>
+    </div>
+  </div>
+
+  <audio data-key="65" src="sounds/clap.wav"></audio>
+  <audio data-key="83" src="sounds/hihat.wav"></audio>
+  <audio data-key="68" src="sounds/kick.wav"></audio>
+  <audio data-key="70" src="sounds/openhat.wav"></audio>
+  <audio data-key="71" src="sounds/boom.wav"></audio>
+  <audio data-key="72" src="sounds/ride.wav"></audio>
+  <audio data-key="74" src="sounds/snare.wav"></audio>
+  <audio data-key="75" src="sounds/tom.wav"></audio>
+  <audio data-key="76" src="sounds/tink.wav"></audio>
+
+  <div class="sequencer">
+    <div class="seq-controls">
+      <label>BPM <input type="number" id="bpm" value="120" min="40" max="300" step="1"></label>
+      <button id="seq-toggle">▶ Start</button>
+      <span class="step-display">Step: <span id="step-num">1</span> / 16</span>
+    </div>
+    <div class="grid" id="seq-grid"></div>
+  </div>
+
+<script>
+  const soundMap = [
+    { keyCode: 65, key: 'A', name: 'clap' },
+    { keyCode: 83, key: 'S', name: 'hihat' },
+    { keyCode: 68, key: 'D', name: 'kick' },
+    { keyCode: 70, key: 'F', name: 'openhat' },
+    { keyCode: 71, key: 'G', name: 'boom' },
+    { keyCode: 72, key: 'H', name: 'ride' },
+    { keyCode: 74, key: 'J', name: 'snare' },
+    { keyCode: 75, key: 'K', name: 'tom' },
+    { keyCode: 76, key: 'L', name: 'tink' },
+  ];
+
+  // ── Shared playback ──────────────────────────────
+
+  function removeTransition(e) {
+    if (e.propertyName !== 'transform') return;
+    e.target.classList.remove('playing');
+  }
+
+  function playByKeyCode(keyCode) {
+    const audio = document.querySelector(`audio[data-key="${keyCode}"]`);
+    const key = document.querySelector(`div[data-key="${keyCode}"]`);
+    if (!audio) return;
+
+    key.classList.add('playing');
+    audio.currentTime = 0;
+    audio.play();
+
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    key.appendChild(ripple);
+    ripple.addEventListener('animationend', () => ripple.remove());
+
+    if (isRecording) {
+      recording.push({ keyCode, delay: Date.now() - recordingStartTime });
+    }
+  }
+
+  function playSound(e) {
+    playByKeyCode(e.keyCode);
+  }
+
+  function handleClick(e) {
+    const key = e.target.closest('.key');
+    if (!key) return;
+    playByKeyCode(Number(key.dataset.key));
+  }
+
+  const keys = Array.from(document.querySelectorAll('.key'));
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+  window.addEventListener('keydown', playSound);
+  document.querySelector('.keys').addEventListener('click', handleClick);
+
+  // ── Recording & Playback ─────────────────────────
+
+  let isRecording = false;
+  let recordingStartTime = 0;
+  let recording = [];
+  let playbackTimeouts = [];
+
+  const recordBtn = document.getElementById('record-btn');
+  const playBtn = document.getElementById('play-btn');
+  const recordingDot = document.getElementById('recording-dot');
+
+  function stopPlayback() {
+    playbackTimeouts.forEach(clearTimeout);
+    playbackTimeouts = [];
+    playBtn.textContent = '▶ Play';
+  }
+
+  recordBtn.addEventListener('click', () => {
+    if (isRecording) {
+      isRecording = false;
+      recordBtn.textContent = '⏺ Record';
+      recordingDot.classList.add('hidden');
+      playBtn.disabled = recording.length === 0;
+    } else {
+      stopPlayback();
+      recording = [];
+      recordingStartTime = Date.now();
+      isRecording = true;
+      recordBtn.textContent = '⏹ Stop';
+      recordingDot.classList.remove('hidden');
+      playBtn.disabled = true;
+    }
+  });
+
+  playBtn.addEventListener('click', () => {
+    if (playbackTimeouts.length > 0) {
+      stopPlayback();
+      return;
+    }
+
+    // Unlock audio for programmatic playback (browser autoplay policy)
+    document.querySelectorAll('audio').forEach(a => {
+      a.play().then(() => { a.pause(); a.currentTime = 0; }).catch(() => {});
+    });
+
+    playBtn.textContent = '⏹ Stop';
+    recording.forEach(({ keyCode, delay }) => {
+      const id = setTimeout(() => playByKeyCode(keyCode), delay);
+      playbackTimeouts.push(id);
+    });
+    const total = recording.length > 0 ? recording[recording.length - 1].delay + 500 : 0;
+    const endId = setTimeout(() => {
+      stopPlayback();
+      playBtn.disabled = recording.length === 0;
+    }, total);
+    playbackTimeouts.push(endId);
+  });
+
+  // ── Step Sequencer ───────────────────────────────
+
+  const seqData = soundMap.map(() => Array(16).fill(false));
+  let currentStep = 0;
+  let seqInterval = null;
+  let bpm = 120;
+
+  const seqGrid = document.getElementById('seq-grid');
+  const seqToggle = document.getElementById('seq-toggle');
+  const bpmInput = document.getElementById('bpm');
+  const stepNum = document.getElementById('step-num');
+
+  // Build grid
+  soundMap.forEach((s, row) => {
+    const rowDiv = document.createElement('div');
+    rowDiv.className = 'seq-row';
+
+    const label = document.createElement('span');
+    label.className = 'seq-label';
+    label.textContent = s.name;
+    rowDiv.appendChild(label);
+
+    const cells = document.createElement('div');
+    cells.className = 'seq-cells';
+
+    for (let step = 0; step < 16; step++) {
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.dataset.row = row;
+      cb.dataset.step = step;
+      cb.addEventListener('change', () => {
+        seqData[row][step] = cb.checked;
+      });
+      cells.appendChild(cb);
+    }
+
+    rowDiv.appendChild(cells);
+    seqGrid.appendChild(rowDiv);
+  });
+
+  function highlightStep(step) {
+    document.querySelectorAll('.seq-cells input').forEach(cb => {
+      cb.classList.toggle('active', Number(cb.dataset.step) === step);
+    });
+  }
+
+  function seqTick() {
+    highlightStep(currentStep);
+    stepNum.textContent = currentStep + 1;
+
+    soundMap.forEach((s, row) => {
+      if (seqData[row][currentStep]) {
+        playByKeyCode(s.keyCode);
+      }
+    });
+
+    currentStep = (currentStep + 1) % 16;
+  }
+
+  bpmInput.addEventListener('input', () => {
+    bpm = Number(bpmInput.value) || 120;
+    if (seqInterval) {
+      clearInterval(seqInterval);
+      seqInterval = setInterval(seqTick, (60 / bpm) * 1000 / 4);
+    }
+  });
+
+  seqToggle.addEventListener('click', () => {
+    if (seqInterval) {
+      clearInterval(seqInterval);
+      seqInterval = null;
+      currentStep = 0;
+      highlightStep(-1);
+      stepNum.textContent = '1';
+      seqToggle.textContent = '▶ Start';
+    } else {
+      currentStep = 0;
+      seqInterval = setInterval(seqTick, (60 / bpm) * 1000 / 4);
+      seqToggle.textContent = '⏹ Stop';
+    }
+  });
+</script>
+
+</body>
+</html>
