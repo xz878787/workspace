@@ -43,3 +43,5 @@
   git config --global user.email""
   
 ## repo 仓库
+-remote origin 远程源
+- git push origin master/main
