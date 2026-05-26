@@ -1,0 +1,323 @@
+/* ================================================================
+   基础 (Base)
+   ================================================================ */
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f5f0e8;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* ================================================================
+   画布容器 (Canvas Container)
+   ================================================================ */
+
+#canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+#canvas-container canvas {
+    display: block;
+}
+
+/* ================================================================
+   磨砂玻璃面板 (Glass Panel)
+   ================================================================ */
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+}
+
+/* ================================================================
+   顶部面板 (Top Panel)
+   ================================================================ */
+
+#top-panel {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 20px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #4a4035;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+}
+
+.panel-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.slot-select {
+    padding: 6px 28px 6px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    color: #4a4035;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%234a4035'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    outline: none;
+}
+
+.slot-select:focus {
+    border-color: rgba(74, 64, 53, 0.3);
+}
+
+.btn {
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+    color: #4a4035;
+}
+
+.btn-reset {
+    background: rgba(255, 245, 230, 0.8);
+}
+
+.btn-clear {
+    background: rgba(255, 240, 240, 0.8);
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* ================================================================
+   工具栏 (Toolbar)
+   ================================================================ */
+
+#toolbar {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    gap: 6px;
+    padding: 8px 12px;
+}
+
+.tool-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    background: transparent;
+    border: 2px solid transparent;
+    gap: 2px;
+}
+
+.tool-card:hover {
+    background: rgba(255, 255, 255, 0.5);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.tool-card.active {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: #c4a45a;
+    box-shadow: 0 2px 10px rgba(196, 164, 90, 0.25);
+    transform: translateY(-2px);
+}
+
+.tool-emoji {
+    font-size: 20px;
+    line-height: 1;
+}
+
+.tool-label {
+    font-size: 10px;
+    color: #6b5f52;
+    font-weight: 500;
+    line-height: 1;
+}
+
+/* ================================================================
+   小地图 (Minimap)
+   ================================================================ */
+
+.minimap-wrapper {
+    position: fixed;
+    bottom: 120px;
+    right: 20px;
+    z-index: 10;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#minimap {
+    width: 150px;
+    height: 150px;
+    image-rendering: auto;
+    display: block;
+}
+
+/* ================================================================
+   教程遮罩 (Tutorial Overlay)
+   ================================================================ */
+
+#tutorial {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+#tutorial.show {
+    opacity: 1;
+}
+
+#tutorial.fade-out {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.tutorial-card {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 18px;
+    padding: 28px 36px;
+    text-align: center;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+}
+
+.tutorial-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+}
+
+.tutorial-card p {
+    font-size: 16px;
+    color: #4a4035;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+.tutorial-hint {
+    font-size: 12px !important;
+    color: #8b7d6b !important;
+    margin-top: 6px;
+    font-weight: 400 !important;
+}
+
+/* ================================================================
+   响应式 (Responsive)
+   ================================================================ */
+
+@media (max-width: 640px) {
+    #top-panel {
+        top: 8px;
+        padding: 8px 14px;
+        gap: 10px;
+    }
+
+    .title {
+        font-size: 15px;
+    }
+
+    .slot-select {
+        font-size: 11px;
+        padding: 5px 24px 5px 8px;
+    }
+
+    .btn {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+
+    #toolbar {
+        bottom: 12px;
+        gap: 3px;
+        padding: 6px 8px;
+    }
+
+    .tool-card {
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+    }
+
+    .tool-emoji {
+        font-size: 17px;
+    }
+
+    .tool-label {
+        font-size: 9px;
+    }
+
+    .minimap-wrapper {
+        bottom: 100px;
+        right: 8px;
+        width: 110px;
+        height: 110px;
+    }
+
+    #minimap {
+        width: 110px;
+        height: 110px;
+    }
+}

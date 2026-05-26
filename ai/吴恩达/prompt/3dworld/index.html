@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>3D 小世界</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="canvas-container"></div>
+
+    <div id="tutorial">
+        <div class="tutorial-card">
+            <div class="tutorial-icon">🖱️</div>
+            <p>拖拽旋转 &nbsp;|&nbsp; 滚轮缩放 &nbsp;|&nbsp; 点击放置</p>
+            <p class="tutorial-hint">键盘 1-7 切换工具 &nbsp; R 重置 &nbsp; C 清空</p>
+        </div>
+    </div>
+
+    <div id="top-panel" class="glass-panel">
+        <h1 class="title">3D 小世界</h1>
+        <div class="panel-controls">
+            <select id="save-slot" class="slot-select">
+                <option value="0">存档 1</option>
+                <option value="1">存档 2</option>
+                <option value="2">存档 3</option>
+            </select>
+            <button id="btn-reset" class="btn btn-reset">🎲 重置</button>
+            <button id="btn-clear" class="btn btn-clear">🗑️ 清空</button>
+        </div>
+    </div>
+
+    <div id="toolbar" class="glass-panel"></div>
+
+    <div class="minimap-wrapper glass-panel">
+        <canvas id="minimap" width="160" height="160"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

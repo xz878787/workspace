@@ -1,0 +1,242 @@
+html {
+  font-size: 10px;
+  background: url('./background.jpg') bottom center;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* ── Controls ─────────────────────────── */
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.controls button {
+  font-size: 1.4rem;
+  padding: 0.8rem 2rem;
+  border: 2px solid #ffc600;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.5);
+  color: #ffc600;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.controls button:hover:not(:disabled) {
+  background: rgba(255, 198, 0, 0.2);
+}
+
+.controls button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.recording-dot {
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  background: #ff3333;
+  animation: pulse 0.8s ease-in-out infinite;
+}
+
+.recording-dot.hidden {
+  display: none;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* ── Drum Keys ────────────────────────── */
+
+.keys {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  padding: 2rem;
+  user-select: none;
+}
+
+.key {
+  position: relative;
+  overflow: hidden;
+  border: .4rem solid black;
+  border-radius: .5rem;
+  margin: 1rem;
+  font-size: 1.5rem;
+  padding: 1rem .5rem;
+  transition: all .07s ease;
+  width: 10rem;
+  text-align: center;
+  color: white;
+  background: rgba(0, 0, 0, 0.4);
+  text-shadow: 0 0 .5rem black;
+}
+
+.playing {
+  transform: scale(1.1);
+  border-color: #ffc600;
+  box-shadow: 0 0 1rem #ffc600;
+}
+
+kbd {
+  display: block;
+  font-size: 4rem;
+}
+
+.sound {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: .1rem;
+  color: #ffc600;
+}
+
+/* ── Ripple ───────────────────────────── */
+
+.ripple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 198, 0, 0.5);
+  transform: translate(-50%, -50%);
+  animation: ripple 0.5s ease-out;
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  0%   { width: 0; height: 0; opacity: 0.8; }
+  100% { width: 15rem; height: 15rem; opacity: 0; }
+}
+
+/* ── Sequencer ────────────────────────── */
+
+.sequencer {
+  padding: 2rem 2rem 4rem;
+  width: 100%;
+  max-width: 900px;
+  box-sizing: border-box;
+}
+
+.seq-controls {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+}
+
+.seq-controls label {
+  font-size: 1.4rem;
+  color: #ffc600;
+}
+
+.seq-controls input[type="number"] {
+  width: 5.5rem;
+  font-size: 1.4rem;
+  padding: 0.4rem 0.6rem;
+  border: 2px solid #ffc600;
+  border-radius: 0.4rem;
+  background: rgba(0, 0, 0, 0.5);
+  color: #ffc600;
+  text-align: center;
+  margin-left: 0.5rem;
+}
+
+.seq-controls button {
+  font-size: 1.4rem;
+  padding: 0.6rem 2rem;
+  border: 2px solid #ffc600;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.5);
+  color: #ffc600;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.seq-controls button:hover {
+  background: rgba(255, 198, 0, 0.2);
+}
+
+.step-display {
+  font-size: 1.4rem;
+  color: #ffc600;
+  min-width: 10rem;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.seq-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.seq-label {
+  width: 7rem;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  color: #ffc600;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.seq-cells {
+  display: flex;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.seq-cells input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 2px solid rgba(255, 198, 0, 0.4);
+  border-radius: 0.3rem;
+  background: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.seq-cells input[type="checkbox"]:checked {
+  background: rgba(255, 198, 0, 0.6);
+  border-color: #ffc600;
+}
+
+.seq-cells input[type="checkbox"].active {
+  border-color: #fff;
+  box-shadow: 0 0 0.6rem rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.seq-cells input[type="checkbox"]:checked.active {
+  background: #ffc600;
+  box-shadow: 0 0 1rem #ffc600;
+}
