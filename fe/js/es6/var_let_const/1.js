@@ -7,4 +7,14 @@ function setWidth(){
 }
 
 setWidth();
-console.log(width);
+//console.log(width);
+var age = 100;
+if(age >12){
+    // es6 常量 不可以改变的
+   var dog=age*7;
+   let x=111;
+    console.log(dog);   
+    dog++;
+}
+console.log(dog);
+console.log(x);
