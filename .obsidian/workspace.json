@@ -1,0 +1,211 @@
+{
+  "main": {
+    "id": "0df83b2e5c954baa",
+    "type": "split",
+    "children": [
+      {
+        "id": "eb7a8d26faf1b440",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1f5f5dd7e82de72b",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "关系图谱"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "f9b5dd4535ec5168",
+    "type": "split",
+    "children": [
+      {
+        "id": "a68dfbd63e71043f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f8ada4935741c286",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "53b2d2811a3d4959",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "bebca12a134f84e0",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 368.5
+  },
+  "right": {
+    "id": "336fc8fedbcf36e2",
+    "type": "split",
+    "children": [
+      {
+        "id": "e442bb8830b9b6c4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a07fc0d9b7131f69",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "readme.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "readme 的反向链接列表"
+            }
+          },
+          {
+            "id": "f221d834e6c523d9",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "readme.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "readme 的出链列表"
+            }
+          },
+          {
+            "id": "3261f4c6f7654c48",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "8462da30bc39f897",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "00618e3fd5e75b27",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "readme.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "readme 的大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false
+    }
+  },
+  "active": "1f5f5dd7e82de72b",
+  "lastOpenFiles": [
+    "未命名.base",
+    "￼ opc.readme.md",
+    "interview/unique/数组去重.readme.md",
+    "git/Git.readme.md",
+    "fe/js/es6/var_let_const/￼ es6.readme.md",
+    "ai/wnd/prompt/吴恩达AI应用中的Prompt.readme.md",
+    "ai/model_scope/魔塔.readme.md",
+    "ai/fde/FDE Forward Deployed Engineer.readme.md",
+    "ai/吴恩达/吴恩达AI学习系列.readme.md",
+    "ai/吴恩达/claude_code/try-cc/Claude Code.readme.md",
+    "ai/吴恩达/claude_code/demo1/jima/README.md",
+    "ai/吴恩达/claude_code/demo1/￼ claude code安装.readme.md",
+    "ai/吴恩达/claude_code/01 - JavaScript Drum Kit/CLAUDE.md",
+    "ai/吴恩达/claude_code/01 - JavaScript Drum Kit/background.jpg",
+    "ai/吴恩达/proj/users_chat/￼ users_chat AI 全栈项目.readme.md",
+    "ai/吴恩达/prompt/3dworld/￼ 3D 小世界.readme.md",
+    "ai/吴恩达/prompt/landing_page/FOOD_APP/￼ React + TypeScript + Vite.README.md",
+    "ai/吴恩达/prompt/landing_page/￼ 落地页 Landing Page.md.md",
+    "ai/吴恩达/claude_code/demo1/jima/node_modules/flat-cache/changelog.md",
+    "ai/吴恩达/claude_code/demo1/jima/node_modules/word-wrap/README.md",
+    "ai/吴恩达/claude_code/demo1/jima/node_modules/ajv/README.md",
+    "ai/吴恩达/proj/users_chat/backend/node_modules/dayjs/README.md",
+    "ai/吴恩达/prompt/landing_page/FOOD_APP/node_modules/lru-cache/README.md",
+    "ai/吴恩达/claude_code/demo1/jima/node_modules/@babel/helper-compilation-targets/README.md",
+    "未命名 1.md",
+    "未命名.md"
+  ]
+}
