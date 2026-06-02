@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "eb7a8d26faf1b440",
+        "id": "9ff9c89f77352266",
         "type": "tabs",
         "children": [
           {
-            "id": "1f5f5dd7e82de72b",
+            "id": "a19514ccbf5aacf0",
             "type": "leaf",
             "state": {
               "type": "graph",
@@ -90,7 +90,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "readme.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +99,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "readme 的反向链接列表"
+              "title": "反向链接"
             }
           },
           {
@@ -165,7 +164,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
+    "width": 200,
     "collapsed": true
   },
   "left-ribbon": {
@@ -179,33 +178,36 @@
       "bases:新建数据库": false
     }
   },
-  "active": "1f5f5dd7e82de72b",
+  "active": "a19514ccbf5aacf0",
   "lastOpenFiles": [
+    "ai/wnd/prompt/吴恩达Prompt工程实战-掘金文章.md",
+    "ai/吴恩达/claude_code/demo1/jima/node_modules/is-glob/README.md",
+    "ai/吴恩达/prompt/landing_page/FOOD_APP/node_modules/word-wrap/README.md",
+    "ai/吴恩达/claude_code/demo1/jima/node_modules/js-tokens/README.md",
+    "ai/吴恩达/claude_code/demo1/jima/node_modules/ms/license.md",
+    "ai/吴恩达/proj/users_chat/backend/node_modules/dayjs/README.md",
+    "ai/吴恩达/prompt/landing_page/FOOD_APP/node_modules/is-glob/README.md",
     "未命名.base",
-    "￼ opc.readme.md",
-    "interview/unique/数组去重.readme.md",
+    "未命名.md",
     "git/Git.readme.md",
+    "interview/unique/数组去重.readme.md",
+    "￼ opc.readme.md",
+    "ai/吴恩达/claude_code/01 - JavaScript Drum Kit/sounds/boom.wav",
+    "ai/吴恩达/claude_code/demo1/jima/README.md",
+    "ai/吴恩达/claude_code/demo1/￼ claude code安装.readme.md",
+    "ai/吴恩达/claude_code/try-cc/Claude Code.readme.md",
+    "ai/吴恩达/proj/users_chat/￼ users_chat AI 全栈项目.readme.md",
     "fe/js/es6/var_let_const/￼ es6.readme.md",
     "ai/wnd/prompt/吴恩达AI应用中的Prompt.readme.md",
     "ai/model_scope/魔塔.readme.md",
     "ai/fde/FDE Forward Deployed Engineer.readme.md",
     "ai/吴恩达/吴恩达AI学习系列.readme.md",
-    "ai/吴恩达/claude_code/try-cc/Claude Code.readme.md",
-    "ai/吴恩达/claude_code/demo1/jima/README.md",
-    "ai/吴恩达/claude_code/demo1/￼ claude code安装.readme.md",
     "ai/吴恩达/claude_code/01 - JavaScript Drum Kit/CLAUDE.md",
     "ai/吴恩达/claude_code/01 - JavaScript Drum Kit/background.jpg",
-    "ai/吴恩达/proj/users_chat/￼ users_chat AI 全栈项目.readme.md",
     "ai/吴恩达/prompt/3dworld/￼ 3D 小世界.readme.md",
     "ai/吴恩达/prompt/landing_page/FOOD_APP/￼ React + TypeScript + Vite.README.md",
     "ai/吴恩达/prompt/landing_page/￼ 落地页 Landing Page.md.md",
     "ai/吴恩达/claude_code/demo1/jima/node_modules/flat-cache/changelog.md",
-    "ai/吴恩达/claude_code/demo1/jima/node_modules/word-wrap/README.md",
-    "ai/吴恩达/claude_code/demo1/jima/node_modules/ajv/README.md",
-    "ai/吴恩达/proj/users_chat/backend/node_modules/dayjs/README.md",
-    "ai/吴恩达/prompt/landing_page/FOOD_APP/node_modules/lru-cache/README.md",
-    "ai/吴恩达/claude_code/demo1/jima/node_modules/@babel/helper-compilation-targets/README.md",
-    "未命名 1.md",
-    "未命名.md"
+    "ai/吴恩达/claude_code/demo1/jima/node_modules/word-wrap/README.md"
   ]
 }
