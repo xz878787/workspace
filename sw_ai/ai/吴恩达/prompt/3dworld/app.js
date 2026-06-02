@@ -247,10 +247,25 @@ function makeBaseBox(color, roughness, y) {
 }
 
 function buildGrass(group, cx, cz) {
+    // Base grass plate
     var m = makeBaseBox(COLORS.grass, 0.8, 0.06);
     m.position.x = cx;
     m.position.z = cz;
     group.add(m);
+
+    // Add grass tufts for texture
+    var tuftMat = new THREE.MeshStandardMaterial({ color: 0x6db845, roughness: 0.7 });
+    for (var i = 0; i < 5; i++) {
+        var tuftGeo = new THREE.CylinderGeometry(0.015, 0.02, 0.08 + Math.random() * 0.06, 4);
+        var tuft = new THREE.Mesh(tuftGeo, tuftMat);
+        tuft.position.set(
+            cx + (Math.random() - 0.5) * 0.7,
+            0.12 + Math.random() * 0.03,
+            cz + (Math.random() - 0.5) * 0.7
+        );
+        tuft.castShadow = true;
+        group.add(tuft);
+    }
 }
 
 function buildDirt(group, cx, cz) {
@@ -261,58 +276,130 @@ function buildDirt(group, cx, cz) {
 }
 
 function buildWater(group, cx, cz) {
-    var geo = new THREE.BoxGeometry(0.94, 0.08, 0.94);
-    var mat = new THREE.MeshStandardMaterial({ color: COLORS.water, roughness: 0.2, metalness: 0.25 });
+    // Main water body with translucency
+    var geo = new THREE.BoxGeometry(0.94, 0.12, 0.94);
+    var mat = new THREE.MeshStandardMaterial({
+        color: COLORS.water,
+        roughness: 0.15,
+        metalness: 0.3,
+        transparent: true,
+        opacity: 0.85
+    });
     var mesh = new THREE.Mesh(geo, mat);
-    mesh.position.set(cx, -0.1, cz);
+    mesh.position.set(cx, -0.12, cz);
     mesh.receiveShadow = true;
     group.add(mesh);
+
+    // Wave layers for water surface effect
+    var waveMat = new THREE.MeshStandardMaterial({
+        color: 0x6ec4e8,
+        roughness: 0.1,
+        metalness: 0.4,
+        transparent: true,
+        opacity: 0.6
+    });
+    for (var i = 0; i < 3; i++) {
+        var waveGeo = new THREE.BoxGeometry(0.85 - i * 0.1, 0.02, 0.85 - i * 0.1);
+        var wave = new THREE.Mesh(waveGeo, waveMat);
+        wave.position.set(cx, -0.05 + i * 0.01, cz);
+        group.add(wave);
+    }
 }
 
 function buildStoneFeature(group, cx, cz) {
-    var geo = new THREE.IcosahedronGeometry(0.28, 0);
-    var mat = new THREE.MeshStandardMaterial({ color: COLORS.stone, roughness: 0.55, metalness: 0.05 });
-    var mesh = new THREE.Mesh(geo, mat);
-    mesh.position.set(cx + (Math.random() - 0.5) * 0.15, 0.28, cz + (Math.random() - 0.5) * 0.15);
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-    mesh.rotation.set(Math.random() * 0.4, Math.random() * Math.PI, Math.random() * 0.4);
-    group.add(mesh);
+    // Use Dodecahedron for more rounded, natural boulder look
+    var stoneMat = new THREE.MeshStandardMaterial({ color: COLORS.stone, roughness: 0.6, metalness: 0.05 });
 
-    if (Math.random() < 0.5) {
-        var geo2 = new THREE.IcosahedronGeometry(0.18, 0);
-        var mesh2 = new THREE.Mesh(geo2, mat);
-        mesh2.position.set(cx + (Math.random() - 0.5) * 0.25, 0.15, cz + (Math.random() - 0.5) * 0.25);
-        mesh2.castShadow = true;
-        mesh2.receiveShadow = true;
-        mesh2.rotation.set(Math.random() * 0.5, Math.random() * Math.PI, Math.random() * 0.5);
-        group.add(mesh2);
+    // Main boulder
+    var geo1 = new THREE.DodecahedronGeometry(0.32, 0);
+    var mesh1 = new THREE.Mesh(geo1, stoneMat);
+    mesh1.position.set(cx + (Math.random() - 0.5) * 0.15, 0.30, cz + (Math.random() - 0.5) * 0.15);
+    mesh1.castShadow = true;
+    mesh1.receiveShadow = true;
+    mesh1.rotation.set(Math.random() * 0.5, Math.random() * Math.PI, Math.random() * 0.5);
+    group.add(mesh1);
+
+    // Secondary stones
+    var stoneCount = 2 + Math.floor(Math.random() * 2);
+    for (var i = 0; i < stoneCount; i++) {
+        var size = 0.12 + Math.random() * 0.15;
+        var geo = new THREE.DodecahedronGeometry(size, 0);
+        var mesh = new THREE.Mesh(geo, stoneMat);
+        var angle = (i / stoneCount) * Math.PI * 2 + Math.random() * 0.5;
+        var dist = 0.2 + Math.random() * 0.2;
+        mesh.position.set(
+            cx + Math.cos(angle) * dist,
+            0.12 + Math.random() * 0.1,
+            cz + Math.sin(angle) * dist
+        );
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        mesh.rotation.set(Math.random() * 0.6, Math.random() * Math.PI, Math.random() * 0.6);
+        group.add(mesh);
     }
 }
 
 function buildTreeFeature(group, cx, cz) {
-    var trunkGeo = new THREE.CylinderGeometry(0.07, 0.09, 0.4, 8);
-    var trunkMat = new THREE.MeshStandardMaterial({ color: COLORS.trunk, roughness: 0.75 });
+    // Trunk with slight taper and bark detail
+    var trunkGeo = new THREE.CylinderGeometry(0.06, 0.09, 0.42, 10);
+    var trunkMat = new THREE.MeshStandardMaterial({ color: COLORS.trunk, roughness: 0.8 });
     var trunk = new THREE.Mesh(trunkGeo, trunkMat);
     trunk.position.set(cx, 0.32, cz);
     trunk.castShadow = true;
     trunk.receiveShadow = true;
     group.add(trunk);
 
-    var leafGeo1 = new THREE.ConeGeometry(0.22, 0.45, 8);
-    var leafMat = new THREE.MeshStandardMaterial({ color: COLORS.leaf, roughness: 0.65 });
+    // Add bark bumps for texture
+    var barkMat = new THREE.MeshStandardMaterial({ color: 0x7a4d2a, roughness: 0.85 });
+    for (var i = 0; i < 4; i++) {
+        var bumpGeo = new THREE.SphereGeometry(0.025, 4, 4);
+        var bump = new THREE.Mesh(bumpGeo, barkMat);
+        var angle = (i / 4) * Math.PI * 2;
+        bump.position.set(cx + Math.cos(angle) * 0.07, 0.25 + Math.random() * 0.1, cz + Math.sin(angle) * 0.07);
+        bump.castShadow = true;
+        group.add(bump);
+    }
+
+    // Multiple leaf layers with slight color variation
+    var leafColors = [COLORS.leaf, 0x357a2e, 0x408b35, 0x3d8b37];
+    var leafMat = new THREE.MeshStandardMaterial({ color: leafColors[Math.floor(Math.random() * leafColors.length)], roughness: 0.65 });
+
+    // Bottom layer - wider
+    var leafGeo1 = new THREE.ConeGeometry(0.26, 0.48, 10);
     var leaves1 = new THREE.Mesh(leafGeo1, leafMat);
-    leaves1.position.set(cx, 0.62, cz);
+    leaves1.position.set(cx, 0.58, cz);
     leaves1.castShadow = true;
     leaves1.receiveShadow = true;
     group.add(leaves1);
 
-    var leafGeo2 = new THREE.ConeGeometry(0.17, 0.35, 8);
+    // Middle layer
+    var leafGeo2 = new THREE.ConeGeometry(0.22, 0.42, 10);
     var leaves2 = new THREE.Mesh(leafGeo2, leafMat);
-    leaves2.position.set(cx, 0.82, cz);
+    leaves2.position.set(cx, 0.78, cz);
     leaves2.castShadow = true;
     leaves2.receiveShadow = true;
     group.add(leaves2);
+
+    // Top layer
+    var leafGeo3 = new THREE.ConeGeometry(0.16, 0.35, 10);
+    var leaves3 = new THREE.Mesh(leafGeo3, leafMat);
+    leaves3.position.set(cx, 0.95, cz);
+    leaves3.castShadow = true;
+    leaves3.receiveShadow = true;
+    group.add(leaves3);
+
+    // Small side branches
+    var branchMat = new THREE.MeshStandardMaterial({ color: COLORS.trunk, roughness: 0.75 });
+    for (var j = 0; j < 3; j++) {
+        var branchGeo = new THREE.CylinderGeometry(0.02, 0.015, 0.15, 6);
+        var branch = new THREE.Mesh(branchGeo, branchMat);
+        var angle = (j / 3) * Math.PI * 2 + Math.random() * 0.5;
+        branch.position.set(cx + Math.cos(angle) * 0.12, 0.45 + j * 0.1, cz + Math.sin(angle) * 0.12);
+        branch.rotation.z = Math.PI / 4 * (Math.random() > 0.5 ? 1 : -1);
+        branch.rotation.y = angle;
+        branch.castShadow = true;
+        group.add(branch);
+    }
 }
 
 function buildHouseFeature(group, cx, cz) {
