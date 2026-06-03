@@ -1,0 +1,17 @@
+{
+  "name": "demo2",
+  "version": "1.0.0",
+  "description": "async function main() {\r   const  OpenAI_API_KEY = process.env.OPENAI_API_KEY;\r   const openai = new OpenAI_API_KEY({\r     apiKey: OpenAI_API_KEY,\r   });\r }",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^17.4.2"
+  },
+  "devDependencies": {}
+}
