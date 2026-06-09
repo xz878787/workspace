@@ -1,0 +1,18 @@
+!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <script >
+            const arr= new Array();
+            console.log(typeof Array, // 1. 看看 Array 是什么类型
+                Array.prototype,// 2. Array 的原型对象
+                Array.prototype.__proto__.constructor,// 3. 原型的原型的构造器
+                Array.prototype.__proto__.__proto__// 4. 原型的原型的原型
+                           );
+        </script>
+    </body>
+</html>
