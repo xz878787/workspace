@@ -1,7 +1,7 @@
 # Ai全栈工程师
 
 ## opc(介绍)
-One Person Company 一人公司践行者
+翻译:One Person Company 一人公司践行者
 大厂需要的不仅是程序员，AI就可以提供了
 借助AI的力量，一个人搞定一个项目，形成闭环。
 
