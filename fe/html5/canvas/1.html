@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 炫酷新特性canvas画布</title>
+</head>
+<body>
+    <canvas id="canvas" width="800" height="600"
+    style="border: 1px solid #333;">
+    >
+        你的浏览器不支持 canvas画布
+    </canvas>
+    <script>
+        const canvas=document.querySelector('#canvas');
+        const ctx=canvas.getContext('2d');
+        ctx.fillStyle='blue';// 填充颜色
+        ctx.fillRect(20,20,100,80);
+
+        ctx.strokeStyle='#f56565';
+        ctx.lineWidth=5;
+        ctx.strokeRect(150,20,100,80);
+        ctx.clearRect(50,50,40,30);
+    </script>
+
+</body>
+</html>
