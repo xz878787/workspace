@@ -1,5 +1,6 @@
 // JavaScript 执行机制对于开发者至关重要。
 // 代码是怎么执行的
+
 showName('极客')
 console.log(myname)
 
