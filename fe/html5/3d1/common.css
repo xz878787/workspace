@@ -1,0 +1,106 @@
+
+
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+}
+/* 文档流全局重置，清除内外边距 */
+/* 页面容器 html body 占满视口高度 */
+html,body{
+height: 100%;
+/* background-color: #000; */
+display: flex;/* 弹性布局 移动端视窗大小多变最常用布局*/
+justify-content: center;/*主轴水平居中*/
+flex-direction: row;/*默认值 切换为column 主轴垂直，次轴水平*/
+align-items: center;/* 次轴垂直居中对齐方式 */
+
+}
+/* 透视父容器，提供3D观察视距 */
+.box-wrap{
+    width:200px;
+    height:200px;
+    /* background-color: pink; */
+    perspective:600px;/*3d 核心，视距：人眼到立方体的观察距离，数值越小3D透视越强*/
+}
+/* 立方体核心容器，承载6个面 */
+.box{
+    width:100px;
+    height:100px;
+    /* background-color: pink; 已删除，底色会遮挡3D空间 */
+    position: relative;/*3d 核心，相对定位，作为6个面绝对定位的参照父级*/
+    transform-style: preserve-3d;/*3d 核心，保留子元素3D空间，不扁平化2D*/
+    /* transform: rotateY(60deg); 已删除，静态旋转会和动画transform叠加冲突 */
+     /* 自定义动画
+       rotate 自定义动画名字 动作导演
+       duration 1s 一次动画的持续时间
+       linear 匀速运动
+       infinite 无限循环播放
+     */
+     animation: rotate 1s linear infinite;
+     /* 旋转动画：绕Y轴360度水平旋转 */
+}
+/* 立方体旋转关键帧动画，必须写在所有选择器外部 */
+@keyframes rotate {
+    0%{
+        transform: rotateY(0deg);
+    }
+    100%{
+        transform: rotateY(360deg);
+    }
+}
+
+/* 立方体6个面公共基础样式 */
+.face{
+    width:100px;
+    height:100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(229, 150, 163);
+    /* opacity: 0.5; 半透明会导致6个面重叠混色，不利于观察立方体结构，已移除 */
+    font-size: 24px;
+    color: #fff;
+}
+/* 前面：向屏幕前方平移立方体半边长50px */
+.front{
+    background: rgb(65, 28, 214);
+    /* 合并transform，避免重复属性覆盖失效 */
+    transform: translateZ(50px) rotateY(0deg);
+}
+/* 后面：向屏幕后方平移-50px，旋转180度让文字正向显示不镜像 */
+.back{
+    background: rgb(183, 212, 16);
+    transform: translateZ(-50px) rotateY(180deg);
+    
+}
+/* 左面：向左平移50px，绕Y轴逆时针旋转90度 */
+.left{
+    background: rgb(28, 214, 65);
+    transform: translateX(-50px) rotateY(-90deg);
+    
+}
+/* 右面：向右平移50px，绕Y轴顺时针旋转90度 */
+.right{
+    background: rgb(214, 28, 65);
+    /* 顺时针旋转Y轴90度 */
+    transform: translateX(50px) rotateY(90deg);
+    
+}
+/* 上面：向上平移50px，绕X轴顺时针旋转90度 */
+.top{
+    background: rgb(71, 17, 172);
+    transform: translateY(-50px) rotateX(90deg);
+    
+}
+/* 下面：向下平移50px，绕X轴逆时针旋转90度 */
+.bottom{
+    background: rgb(217, 44, 124);
+    transform: translateY(50px) rotateX(-90deg);
+    
+}

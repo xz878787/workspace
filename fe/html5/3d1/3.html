@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>css 3d </title>
+        <style>
+           .box{
+            /* 弹性布局的子元素们 默认会主轴度对齐 被父元素管着
+            父与子之间的布局关系，
+            开启了格式化上下文
+             */
+             display:flex;
+             /* flex-direction: row; */
+
+           }
+           .item{
+            flex:1;
+            background-color: rgb(157, 30, 51);
+            text-align: center;
+           }
+
+
+        </style>
+        <link rel="stylesheet" href="./common.css">
+     <body>
+       
+                <div class="box">前</div>
+                <div class="box">后</div>
+              
+           
+        </body>
+        </html>
