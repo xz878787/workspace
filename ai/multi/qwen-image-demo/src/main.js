@@ -4,7 +4,7 @@ const root = document.querySelector('#app');
 
 const generateImage = async () => {
   const res = await fetch(
-    'https://dashscope.aliyuncs.com/api/v1/serv ices/aigc/multimodal-generation/generation',
+    '/api/dashscope/api/v1/services/aigc/multimodal-generation/generation',
     {
       method: 'POST',
       headers: {
@@ -42,7 +42,12 @@ const generateImage = async () => {
   )
   const data = await res.json();
   console.log(data);
+  if (!res.ok) {
+    root.innerHTML = `<p style="color:red">请求失败(${res.status}): ${data.message || '请稍后再试'}</p>`;
+    return '';
+  }
   return data.output.choices[0].message.content[0].image;
+
 }
 
 const renderImage = (imageUrl) => {
