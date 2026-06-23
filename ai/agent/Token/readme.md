@@ -10,7 +10,7 @@ AI Promptoing  For Everyone
   tesla 总监 OpenAI gpt3的作者 
   3 小时 大模型入门视频
   讲透大模型原理
-  [视频](https://www.bilibili.com/video/BV16cNEeXEer/?spm_id_from=333.337.search-card.all.click&vd_source=19dea2d6e1dfcae122ca9315d761ad9e)
+  [深入chatgpt这样的模型](https://www.bilibili.com/video/BV16cNEeXEer/?spm_id_from=333.337.search-card.all.click&vd_source=19dea2d6e1dfcae122ca9315d761ad9e)
 
   Transformer架构(google )、Attention机制(注意力机制)、
   微调(fine-tuning) ...
@@ -28,7 +28,10 @@ AI Promptoing  For Everyone
   网站、小程序、客户管理工具
   Agent 开发
   ## 关注
-  - 晓辉博士
+  - 晓辉博士 专业深度
+- 42章经
+- 宝玉AI  Prompt Enginner 
+- 归藏 AI 产品
 
 
 
@@ -47,12 +50,14 @@ AI Promptoing  For Everyone
   由计算机的底层运行机制和模型训练的效率决定的)。
   必须把文字转为一串数字离散符号ID ,token 。 
   
-  ## js-tiktoken
+  ## token demo
+  - js-tiktoken
   js-tiktoken 是无 WASM 依赖的纯 JS 库，复刻 OpenAI BBPE 分词规则，用于前端 / 边缘环境精准统计 GPT 系列模型 token。
   npm init -y
   pnpm i js-tiktoken
   文本编码为token
   解码token为文本
+  输入的tokens + 输出的tokens  = 总token数
   ## Embedding
   大模型不能直接处理文本，先tokenizer, 再embedding
   文本 切割为token(大的文本理解任务切割为小的文本理解任务， llm的处理性能)  不能切成字符，没意义
