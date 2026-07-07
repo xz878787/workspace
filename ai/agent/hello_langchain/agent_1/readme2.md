@@ -15,4 +15,4 @@ llm + Tool （fs +cli）
 
 ## langchain 
 llm 开发框架 比openai(transformer , Generative) 还早诞生
-- llm 有很多
+- llm 有很多家 兼容各家大模型 @langchain/openai
