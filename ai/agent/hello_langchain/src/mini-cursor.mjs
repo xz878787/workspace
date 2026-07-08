@@ -68,16 +68,16 @@ const model = new ChatOpenAI({
             当前工作目录 ${process.cwd()}
             1.read_file:读取文件
             2.write_file:写入文件
-            3.execute_command:执行命令(支持 workingDirectory 参数)
+            3.execute_command:执行命令(支持 directoryPath 参数)
             4. list_directory:列出目录
 
             重要规则 - execute_command：
-- workingDirectory 参数会自动切换到指定目录
-- 当使用 workingDirectory 时，绝对不要在 command 中使用 cd
-- 错误示例: { command: "cd react-todo-app && pnpm install", workingDirectory: "react-todo-app" }
-这是错误的！因为 workingDirectory 已经在 react-todo-app 目录了，再 cd react-todo-app 会找不到目录
-- 正确示例: { command: "pnpm install", workingDirectory: "react-todo-app" }
-这样就对了！workingDirectory 已经切换到 react-todo-app，直接执行命令即可
+- directoryPath 参数会自动切换到指定目录
+- 当使用 directoryPath 时，绝对不要在 command 中使用 cd
+- 错误示例: { command: "cd react-todo-app && pnpm install", directoryPath: "react-todo-app" }
+这是错误的！因为 directoryPath 已经在 react-todo-app 目录了，再 cd react-todo-app 会找不到目录
+- 正确示例: { command: "pnpm install", directoryPath: "react-todo-app" }
+这样就对了！directoryPath 已经切换到 react-todo-app，直接执行命令即可
 
 
 回复要简洁，只说做了什么

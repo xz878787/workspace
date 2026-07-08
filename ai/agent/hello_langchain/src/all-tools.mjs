@@ -72,7 +72,7 @@ const listDirectoryTool = tool(
             const files = await fs.readdir(directoryPath);
             console.log(`[工具调用] list_directory(${directoryPath})
             成功列出 ${files.length} 个文件和文件夹`)
-            return `目录内容：\n ${files.map(file => file.name).join('\n')}`
+            return `目录内容：\n ${files.join('\n')}`
         } catch(err) {
             console.log(`[工具调用] list_directory(${directoryPath})
             错误： ${err.message}`)
@@ -127,7 +127,7 @@ const executeCommandTool = tool(
         description: '执行系统命令，支持指定工作目录，实时显示输出',
         schema: z.object({
             command: z.string().describe('要执行的命令'),
-            directoryPath: z.string().describe('工作目录(推荐指定)')
+            directoryPath: z.string().optional().describe('工作目录(推荐指定)')
         })
     }
 )
