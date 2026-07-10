@@ -25,3 +25,26 @@ client 配置添加， 实现**跨进程**工具调用
 他和fetch 不同 不是接口调用 不是拿数据接口。他是扩展context
 
 ## MCP Tool
+
+
+## resources
+- MCP stdio/http 跨进程提供 Tool/Resource/Prompt
+Tool 最常见 和 Tool Use 没啥区别，跨进程 (抛饵)  
+- IPC 
+父子进程 child-process 
+其他语言、远程 client(child-process,
+MultiServerMCPClient) 和 MCP Server 通信通信
+- js 单线程 异步无阻塞 主线程里面的异步
+- resource 可以作为SystemMessage Prompt 的一部分 成为
+context
+- server 里 registerResource
+URI docs://guide
+- host 
+MultiServerMCPClient getResources
+Object.entries 拼成字符串
+RAG 外 丰富上下文的手段    文档，  没有那么长的
+上下文窗口大小
+RAG 有检索 
+
+
+

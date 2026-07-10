@@ -39,6 +39,31 @@ server.registerTool('query_user',{
         ]
     }
 })
+//提供静态资源
+server.registerResource(
+    '使用指南',
+    // http://  stdio -> 定义的访问路径
+    'docs://guide',
+    {
+        description:'MCP Server 使用说明指南',
+        mimeType:'text/plain',
+    },
+    async()=>{
+        return {
+            contents:[
+                {
+                    uri:'docs://guide',
+                    mimeType:'text/plain',
+                    text:`
+                    MCP Server 使用指南
+功能：提供用户查询等工具。
+使用：在 Cursor 等 MCP Client 中通过自然语言对话，Cursor 会自动调用相应工具。
+                    `
+                }
+            ]
+        }
+    }
+)
 //跨进程通信方式 stdio
 
 const transport=new StdioServerTransport();
