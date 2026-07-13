@@ -1,0 +1,22 @@
+A polished cute cyberpunk blog hero illustration about an AI agent connecting tools, resources, and real systems through MCP.
+
+Scene:
+A charming small robot assistant floats at the center of a futuristic workspace. Around it are glowing tool nodes, resource cards, data streams, and protocol connectors, visually suggesting Model Context Protocol, tool calling, resource context, and cross-process communication.
+
+Style:
+Premium tech editorial illustration, cute but not childish, high-end digital art, soft 3D illustration mixed with cyberpunk UI elements, refined and modern, similar quality to a polished AI product launch visual.
+
+Composition:
+Wide 16:9 hero image. Central mascot with generous negative space on the left side for later title text. Balanced depth, clean visual hierarchy, no clutter.
+
+Lighting:
+Soft volumetric lighting, cyan and magenta neon glow, subtle rim light, glossy materials, gentle reflections, atmospheric depth.
+
+Color palette:
+Deep navy and near-black background, cyan, magenta, violet, and small mint highlights. Avoid cheap rainbow colors.
+
+Details:
+The robot should feel friendly and intelligent. Add small floating interface panels, cable-like light trails, abstract server blocks, tool icons, and resource document cards. Make everything coherent and premium.
+
+Constraints:
+No text, no letters, no logos, no watermarks, no brand marks, no distorted typography. Do not include any readable UI text. Do not make it look like flat vector clipart.
