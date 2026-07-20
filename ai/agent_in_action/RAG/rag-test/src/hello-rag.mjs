@@ -22,8 +22,7 @@ const embeddings = new OpenAIEmbeddings({
   configuration: {
     baseURL: process.env.OPENAI_BASE_URL
   }
-})
-
+});
 const documents = [
   new Document({
     pageContent: `光光是一个活泼开朗的小男孩，他有一双明亮的大眼睛，总是带着灿烂的笑容。光光最喜欢的事情就是和朋友们一起玩耍，他特别擅长踢足球，每次在球场上奔跑时，就像一道阳光一样充满活力。`,
