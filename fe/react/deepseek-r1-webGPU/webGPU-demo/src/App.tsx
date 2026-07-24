@@ -23,6 +23,9 @@ function App() {
   // 加载信息
   // const [loadingMessage, setLoadingMessage] = useState("");
   const [loadingMessage, setLoadingMessage] = useState("开始加载");
+  // const [loadingProgress, setLoadingProgress] = useState([
+
+  // ]);
   const [progressItems, setProgressItems] = useState([{
     text: 'model.onnx',
     percentage: 0,
@@ -32,12 +35,20 @@ function App() {
     percentage: 10,
     total: 14353543453
   } ]);
+  // 聊天输入框状态 - 双向绑定
+  const [input, setInput] = useState('');
+
   // 浏览器 导航栏 是否支持 WebGPU
   // 现代浏览器的重要特性
   // ! 取反 navigator.gpu 不支持的时候 undefined 
   // !! 再取反，一定可以转成 true | false
   // 双重否定等于肯定
   const IS_WEBGPU_AVALABLE = !!(navigator as any).gpu;
+
+// llm 处理
+const onEnter=()=>{
+  console.log(input);
+}
 
   // 组件生命周期， 副作用
   // 组件挂载后， 附带做什么
@@ -170,6 +181,31 @@ function App() {
           }
         </div>
       )}
+{/* {聊天输入框} */}
+      <div className="mt-2 border border-gray-300 rounded-lg w-[600px] max-w-[80%] max-h-[200px] mx-auto relative mb-3
+      flex">
+        <textarea className="w-[550px] dark-gray-700
+        px-3 py-4 rounded-lg bg-transparent border-none 
+        outline-hidden disabled:text-gray-400
+        disabled:placeholder-gray-200"
+placeholder="Type your question here..."
+rows={1}
+//双向绑定  
+value={input}
+onInput={(e) => {
+  setInput((e.target as HTMLTextAreaElement).value);
+}}
+onKeyDown={(e) =>{
+  if (input.length>0 && e.key ==='Enter'  && !e.shiftKey){
+    e.preventDefault();
+    onEnter();
+  }
+}}
+title={status == "ready" ? 'Model is ready':'Model is not loaded.'}
+        ></textarea>
+         
+
+      </div>
     </div>):(
       <div>您的浏览器还不支持WebGPU</div>
     )

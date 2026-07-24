@@ -1,32 +1,44 @@
-// Progress 进度条组件
-// 比较独立的， 可复用的业务模块
+// 返回jsx 的函数就是组件
+// 函数接受参数， 复用组件的时候，进度、文件、大小不一样 
+// 组件的属性 html 属性的方式传过来的 props
+
 interface ProgressProps {
   text: string;
   progress: number;
   total: number;
 }
 
-function Progress({ text, progress, total }: ProgressProps) {
-  const formatSize = (bytes: number) => {
-    if (bytes >= 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} GB`;
-    if (bytes >= 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
-    if (bytes >= 1024) return `${(bytes / 1024).toFixed(2)} KB`;
-    return `${bytes} B`;
-  };
+function formatBytes(size: number): string {
+  // 计算应该用哪个单位（0=B, 1=kB, 2=MB...），size为0时直接用B
+  // 几次方 
+  const i = size == 0 ? 0 : Math.floor(Math.log(size) / Math.log(1024));
   return (
-    <div className="mb-2">
-      <div className="flex justify-between text-sm mb-1">
-        <span>{text}</span>
-        <span>{progress}% ({formatSize(total)})</span>
-      </div>
-      <div className="w-full bg-gray-200 rounded-full h-2">
-        <div
-          className="bg-blue-500 h-2 rounded-full transition-all duration-300"
-          style={{ width: `${progress}%` }}
-        ></div>
-      </div>
-    </div>
+    // 1024 的 i次方
+    // 把字节数除以对应单位量级，保留两位小数后转回数字
+    +(size / Math.pow(1024, i)).toFixed(2) * 1 +
+    // 拼接上对应的单位字符串
+    ["B", "kB", "MB", "GB", "TB"][i]
   );
 }
 
-export default Progress;
+
+const Progress = ({ text, progress, total }: ProgressProps) => {
+  // console.log(text, percentage, total);
+  // es6+ 编程风格
+  const percentage = progress ?? 0;
+  return (
+    <div className="w-full bg-gray-100 text-left rounded-lg overflow-hidden mb-0.5">
+  <div 
+  //{js 运行区域 返回?  style 返回行内样式的key： value 对象}
+  style={{width: `${percentage}%`}}//行内样式
+  className="bg-blue-400 whitespace-nowrap px-1 text-sm">
+    
+    {text}
+    {percentage.toFixed(2)}%
+    {isNaN(total) ?"" : ` of ${formatBytes(total)}`}
+  </div>
+    </div>
+  )
+}
+
+export default Progress
