@@ -121,6 +121,6 @@ async function runAgentWithTools(query, maxIterations = 30) {
     return messages[messages.length - 1].content;
 }
 
-await runAgentWithTools(`麻丘站地铁站附近的酒店，最近的 3 个酒店，拿到酒店图片，打开浏览器，展示每个酒店的图片，每个 tab 一个 url 展示，并且在把那个页面标题改为酒店名`);
+await runAgentWithTools(`南昌县梦里水乡附近的酒店，最近的 3 个酒店，拿到酒店图片，打开浏览器，展示每个酒店的图片，每个 tab 一个 url 展示，并且在把那个页面标题改为酒店名`);
 
 await mcpClient.close();
