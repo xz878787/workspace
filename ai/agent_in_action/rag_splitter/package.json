@@ -1,0 +1,19 @@
+{
+  "name": "rag_splitter",
+  "version": "1.0.0",
+  "description": "- 知识库 放的是知识\r 知识的来源很多， 一个word 文档， 一个pdf文件 ，一个哔哩哔哩视频， 一个url，一个挺靠谱的twitter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@langchain/community": "^1.1.29",
+    "@langchain/core": "^1.2.3",
+    "cheerio": "^1.2.0",
+    "dotenv": "^17.4.2"
+  }
+}
