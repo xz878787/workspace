@@ -46,6 +46,8 @@ const model = new ChatOpenAI({
 const client = new MilvusClient({
   address: process.env.MILVUS_ADDRESS,
   token: process.env.MILVUS_TOKEN,
+  timeout: 60000,
+  secure: true,
 })
 
 // ===== RAG 核心函数 =====
@@ -151,5 +153,15 @@ async function start() {
     process.exit(1)
   }
 }
+
+// ===== 优雅关闭 =====
+const shutdown = (signal) => {
+  console.error(`\n收到 ${signal}，退出中...`)
+  try { app.close() } catch {}
+  process.exit(0)
+}
+
+process.on('SIGINT', () => shutdown('SIGINT'))
+process.on('SIGTERM', () => shutdown('SIGTERM'))
 
 start()
