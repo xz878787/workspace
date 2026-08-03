@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>志志AI日报 — 2026年07月20日</title>
+<style>
+  :root {
+    --bg: #0a0e17;
+    --card-bg: #111827;
+    --card-hover: #1a2332;
+    --accent: #6366f1;
+    --accent2: #8b5cf6;
+    --accent3: #06b6d4;
+    --text: #e2e8f0;
+    --text2: #94a3b8;
+    --border: #1e293b;
+    --tag-bg: #1e293b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  .bg-grid {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: radial-gradient(circle, #1e293b 1px, transparent 1px);
+    background-size: 40px 40px; opacity: 0.3; z-index: 0; pointer-events: none;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+
+  /* Header */
+  .header {
+    text-align: center; padding: 50px 20px 30px;
+    background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.1) 50%, rgba(6,182,212,0.1) 100%);
+    border-radius: 20px; margin-bottom: 30px; border: 1px solid var(--border);
+  }
+  .header .icon { font-size: 48px; margin-bottom: 10px; }
+  .header h1 {
+    font-size: 2.2em; font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header .subtitle { color: var(--text2); font-size: 1.05em; margin-top: 8px; }
+  .header .date-badge {
+    display: inline-block; margin-top: 12px; padding: 4px 16px;
+    background: rgba(99,102,241,0.15); border-radius: 20px;
+    font-size: 0.9em; color: var(--accent2);
+  }
+
+  /* Tag Filter */
+  .filter-bar {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+    margin-bottom: 30px; padding: 0 10px;
+  }
+  .filter-tag {
+    padding: 6px 16px; border-radius: 20px; font-size: 0.85em;
+    background: var(--tag-bg); color: var(--text2); cursor: pointer;
+    border: 1px solid transparent; transition: all 0.25s;
+    user-select: none;
+  }
+  .filter-tag:hover { border-color: var(--accent); color: var(--text); }
+  .filter-tag.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* Cards */
+  .card-list { display: flex; flex-direction: column; gap: 16px; }
+  .card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 14px; padding: 22px 24px; cursor: pointer;
+    transition: all 0.3s ease; position: relative; overflow: hidden;
+    text-decoration: none; color: inherit; display: block;
+  }
+  .card:hover {
+    background: var(--card-hover); border-color: var(--accent);
+    transform: translateY(-3px); box-shadow: 0 12px 40px rgba(99,102,241,0.15);
+  }
+  .card .card-num {
+    position: absolute; top: 14px; right: 18px;
+    font-size: 2.5em; font-weight: 900; color: rgba(99,102,241,0.08);
+    line-height: 1;
+  }
+  .card .meta { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .card .source {
+    font-size: 0.78em; color: var(--accent3); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .card .time { font-size: 0.78em; color: var(--text2); }
+  .card h3 { font-size: 1.15em; margin-bottom: 8px; line-height: 1.4; color: #f1f5f9; }
+  .card .summary { font-size: 0.92em; color: var(--text2); line-height: 1.65; }
+  .card .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+  .card .tag {
+    display: inline-block; padding: 3px 10px; border-radius: 12px;
+    font-size: 0.75em; font-weight: 500;
+  }
+  .tag-purple { background: rgba(139,92,246,0.15); color: #a78bfa; }
+  .tag-blue { background: rgba(59,130,246,0.15); color: #60a5fa; }
+  .tag-cyan { background: rgba(6,182,212,0.15); color: #22d3ee; }
+  .tag-green { background: rgba(34,197,94,0.15); color: #4ade80; }
+  .tag-orange { background: rgba(249,115,22,0.15); color: #fb923c; }
+  .tag-rose { background: rgba(244,63,94,0.15); color: #fb7185; }
+  .tag-amber { background: rgba(245,158,11,0.15); color: #fbbf24; }
+
+  /* Card hidden */
+  .card.hidden { display: none; }
+
+  /* Footer */
+  .footer {
+    text-align: center; padding: 30px 20px; margin-top: 30px;
+    color: var(--text2); font-size: 0.82em; border-top: 1px solid var(--border);
+  }
+  .footer a { color: var(--accent2); text-decoration: none; }
+
+  /* Anim */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .card { animation: fadeInUp 0.5s ease forwards; }
+  .card:nth-child(1) { animation-delay: 0.05s; }
+  .card:nth-child(2) { animation-delay: 0.1s; }
+  .card:nth-child(3) { animation-delay: 0.15s; }
+  .card:nth-child(4) { animation-delay: 0.2s; }
+  .card:nth-child(5) { animation-delay: 0.25s; }
+  .card:nth-child(6) { animation-delay: 0.3s; }
+  .card:nth-child(7) { animation-delay: 0.35s; }
+  .card:nth-child(8) { animation-delay: 0.4s; }
+  .card:nth-child(9) { animation-delay: 0.45s; }
+  .card:nth-child(10) { animation-delay: 0.5s; }
+
+  @media (max-width: 640px) {
+    .header h1 { font-size: 1.5em; }
+    .card { padding: 16px 18px; }
+    .card .card-num { font-size: 1.8em; top: 10px; right: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="icon">🤖</div>
+    <h1>志志AI日报</h1>
+    <div class="subtitle">今日精选 10 条 AI 行业重要资讯</div>
+    <div class="date-badge">2026年07月20日 · 星期日</div>
+  </div>
+
+  <!-- Tag Filter -->
+  <div class="filter-bar" id="filterBar">
+    <span class="filter-tag active" data-tag="all">全部</span>
+    <span class="filter-tag" data-tag="大模型">#大模型</span>
+    <span class="filter-tag" data-tag="融资">#融资</span>
+    <span class="filter-tag" data-tag="开源">#开源</span>
+    <span class="filter-tag" data-tag="AI芯片">#AI芯片</span>
+    <span class="filter-tag" data-tag="AI安全">#AI安全</span>
+    <span class="filter-tag" data-tag="政策">#政策</span>
+    <span class="filter-tag" data-tag="AI基础设施">#AI基础设施</span>
+  </div>
+
+  <!-- Cards -->
+  <div class="card-list">
+
+    <!-- Card 1: Kimi K3 -->
+    <a class="card" href="https://techcrunch.com/2026/07/16/moonshots-upcoming-kimi-3-is-expected-to-close-the-gap-with-anthropics-opus-4-8/" target="_blank" data-tags="大模型 开源 中国AI">
+      <div class="card-num">01</div>
+      <div class="meta"><span class="source">TechCrunch / AP News</span><span class="time">3天前</span></div>
+      <h3>Moonshot AI 发布 Kimi K3：全球最大开源模型，2.8万亿参数直逼 Claude/GPT</h3>
+      <div class="summary">北京初创公司月之暗面在 WAIC 2026 发布 Kimi K3，拥有 2.8 万亿参数、百万级上下文窗口和原生视觉理解能力。在 Arena 评测平台的前端编码能力登顶，综合性能与 GPT-5.6 Sol 和 Claude Opus 4.8 持平，但推理成本仅为后者一半。模型权重将于 7 月 27 日全面开源。Elon Musk 评价 "Impressive"。</div>
+      <div class="tags">
+        <span class="tag tag-purple">#大模型</span>
+        <span class="tag tag-green">#开源</span>
+        <span class="tag tag-cyan">#中国AI</span>
+      </div>
+    </a>
+
+    <!-- Card 2: Qwen 3.8 Max -->
+    <a class="card" href="https://www.yna.co.kr/view/AKR20260720070900083" target="_blank" data-tags="大模型 中国AI">
+      <div class="card-num">02</div>
+      <div class="meta"><span class="source">Yonhap / Alibaba</span><span class="time">1天前</span></div>
+      <h3>阿里发布 Qwen 3.8 Max：2.4万亿参数，声称性能仅次于 Claude Fable 5</h3>
+      <div class="summary">阿里巴巴在 WAIC 期间预览 Qwen 3.8 Max，拥有 2.4 万亿参数。阿里官方称其综合性能全球第二，仅次于 Anthropic 的 Claude Fable 5。这一发布紧随 Kimi K3，标志着中国开源大模型正以前所未有的速度追赶美国顶尖闭源模型。</div>
+      <div class="tags">
+        <span class="tag tag-purple">#大模型</span>
+        <span class="tag tag-cyan">#中国AI</span>
+        <span class="tag tag-amber">#阿里</span>
+      </div>
+    </a>
+
+    <!-- Card 3: Fireworks AI $1.5B -->
+    <a class="card" href="https://www.kucoin.com/news/flash/nvidia-backed-ai-cloud-service-fireworks-raises-1-5-billion-in-funding-valued-at-17-5-billion" target="_blank" data-tags="融资 AI云 开源">
+      <div class="card-num">03</div>
+      <div class="meta"><span class="source">KuCoin / Reuters</span><span class="time">4天前</span></div>
+      <h3>Fireworks AI 获 15 亿美元融资，估值 175 亿美元，NVIDIA 参投</h3>
+      <div class="summary">NVIDIA 支持的 AI 云服务平台 Fireworks 完成 15 亿美元新一轮融资，由 Atreides Management、Index Ventures 和 TCV 领投，估值达 175 亿美元。公司日均处理 400 亿 Token，年化收入突破 10 亿美元，同比增 5 倍，已成为开源模型推理托管领域的核心基础设施。</div>
+      <div class="tags">
+        <span class="tag tag-rose">#融资</span>
+        <span class="tag tag-blue">#AI云</span>
+        <span class="tag tag-green">#开源</span>
+      </div>
+    </a>
+
+    <!-- Card 4: Thinking Machines Lab -->
+    <a class="card" href="https://timesofindia.indiatimes.com/technology/tech-news/mira-muratis-less-than-one-year-old-thinking-machines-to-raise-new-round-of-funding-at-50-billion-valuation-what-makes-previously-undisclosed-round-important/affcmtoi_articleshow/125343412.cms" target="_blank" data-tags="融资 大模型">
+      <div class="card-num">04</div>
+      <div class="meta"><span class="source">Times of India / The Verge</span><span class="time">5天前</span></div>
+      <h3>Mira Murati 创立不到一年的 Thinking Machines Lab 估值或达 500 亿美元</h3>
+      <div class="summary">前 OpenAI CTO Mira Murati 创办的 Thinking Machines Lab 刚完成 20 亿美元种子轮（估值 120 亿），旋即启动新一轮融资，估值可能高达 500-600 亿美元。公司发布了首个开源模型 Inkling，虽声明"并非最强"，但为未来产品线奠定了全栈基础。</div>
+      <div class="tags">
+        <span class="tag tag-rose">#融资</span>
+        <span class="tag tag-purple">#大模型</span>
+        <span class="tag tag-green">#开源</span>
+      </div>
+    </a>
+
+    <!-- Card 5: SambaNova $1B -->
+    <a class="card" href="https://www.investing.com/news/stock-market-news/ai-chip-startup-sambanova-valued-at-11-billion-in-1-billion-funding-round-4781072" target="_blank" data-tags="融资 AI芯片">
+      <div class="card-num">05</div>
+      <div class="meta"><span class="source">Reuters / Investing.com</span><span class="time">12天前</span></div>
+      <h3>AI 芯片独角兽 SambaNova 完成 10 亿美元融资，估值 110 亿美元</h3>
+      <div class="summary">AI 推理芯片公司 SambaNova 宣布完成 10 亿美元 F 轮融资，由 General Atlantic 领投，估值达 110 亿美元。摩根大通已选定其作为推理基础设施合作伙伴，标志着 AI 专用芯片在金融等关键行业加速落地，挑战 NVIDIA 在推理市场的主导地位。</div>
+      <div class="tags">
+        <span class="tag tag-rose">#融资</span>
+        <span class="tag tag-orange">#AI芯片</span>
+      </div>
+    </a>
+
+    <!-- Card 6: Together AI $800M -->
+    <a class="card" href="https://techcrunch.com/2026/07/01/neocloud-together-ai-raises-800m-leaps-to-8-3b-valuation/" target="_blank" data-tags="融资 AI云 开源">
+      <div class="card-num">06</div>
+      <div class="meta"><span class="source">TechCrunch</span><span class="time">19天前</span></div>
+      <h3>Together AI 获 8 亿美元融资，估值 83 亿，开源模型云服务年预订额超 11.5 亿</h3>
+      <div class="summary">AI 新云服务商 Together AI 完成 8 亿美元 C 轮融资，由 Aramco Ventures 领投。公司为开源模型提供训练和推理基础设施，客户反馈相比闭源模型可节省 6-60 倍成本。年化预订额已超 11.5 亿美元，彰显企业从闭源向开源模型迁移的强劲趋势。</div>
+      <div class="tags">
+        <span class="tag tag-rose">#融资</span>
+        <span class="tag tag-blue">#AI云</span>
+        <span class="tag tag-green">#开源</span>
+      </div>
+    </a>
+
+    <!-- Card 7: Hassabis Global AI Watchdog -->
+    <a class="card" href="https://www.theverge.com/tech/965270/google-deepmind-demis-hassabis-global-ai-watchdog" target="_blank" data-tags="政策 AI安全">
+      <div class="card-num">07</div>
+      <div class="meta"><span class="source">The Verge</span><span class="time">近期</span></div>
+      <h3>DeepMind CEO Hassabis 呼吁建立由美国主导的全球 AI 监管机构</h3>
+      <div class="summary">Google DeepMind 首席执行官 Demis Hassabis 公开提议建立美国主导的国际 AI 监管组织，有权在模型发布前评估前沿模型，并在风险过高时协调行业放缓研发节奏。他希望在年底前启动该机构，并已向特朗普政府汇报，获得积极回应。</div>
+      <div class="tags">
+        <span class="tag tag-cyan">#政策</span>
+        <span class="tag tag-rose">#AI安全</span>
+      </div>
+    </a>
+
+    <!-- Card 8: Crusoe $3B -->
+    <a class="card" href="https://uk.finance.yahoo.com/news/crusoe-talks-raise-3-billion-215816435.html" target="_blank" data-tags="融资 AI基础设施">
+      <div class="card-num">08</div>
+      <div class="meta"><span class="source">Bloomberg / Yahoo Finance</span><span class="time">18天前</span></div>
+      <h3>AI 数据中心新贵 Crusoe 正洽谈 30 亿美元融资，估值或达 300 亿</h3>
+      <div class="summary">AI 数据中心运营商 Crusoe 正在洽谈约 30 亿美元的新一轮融资，估值可能较此前翻三倍达到约 300 亿美元。公司已与 Meta 和 Oracle 签订算力供应合同，反映了 AI 基础设施需求的爆发式增长——数据中心电力成本已使美国 PJM 电网区域增加 290 亿美元支出。</div>
+      <div class="tags">
+        <span class="tag tag-rose">#融资</span>
+        <span class="tag tag-orange">#AI基础设施</span>
+      </div>
+    </a>
+
+    <!-- Card 9: OpenAI GPT-Red -->
+    <a class="card" href="https://www.theverge.com/archives/ai-artificial-intelligence/2026/7/1" target="_blank" data-tags="AI安全 大模型">
+      <div class="card-num">09</div>
+      <div class="meta"><span class="source">The Verge</span><span class="time">近期</span></div>
+      <h3>OpenAI 发布 GPT-Red：专攻红队测试的模型，可攻破几乎所有对手模型</h3>
+      <div class="summary">OpenAI 训练了一款专门用于 AI 安全红队测试的模型 GPT-Red，声称其"能够攻破几乎所有对抗模型"。该模型已被用于发现并修复 GPT-5.6 Sol 中的漏洞，使其成为 OpenAI 迄今对抗提示注入攻击最稳健的模型，标志着自动化 AI 安全测试的重要进展。</div>
+      <div class="tags">
+        <span class="tag tag-rose">#AI安全</span>
+        <span class="tag tag-purple">#大模型</span>
+        <span class="tag tag-green">#OpenAI</span>
+      </div>
+    </a>
+
+    <!-- Card 10: Apple Intelligence in China -->
+    <a class="card" href="https://www.theverge.com/archives/ai-artificial-intelligence/2026/7/1" target="_blank" data-tags="政策 中国AI">
+      <div class="card-num">10</div>
+      <div class="meta"><span class="source">The Verge</span><span class="time">近期</span></div>
+      <h3>Apple Intelligence 正式通过中国审查，整合阿里通义千问与百度文心</h3>
+      <div class="summary">苹果端侧生成式 AI 服务 Apple Intelligence 已在中国网信办完成注册审批。为符合中国监管要求，苹果整合了阿里巴巴 Qwen 和百度的 AI 模型，标志着苹果 AI 服务正式进入中国市场，也为海外 AI 产品在中国合规落地提供了参考范本。</div>
+      <div class="tags">
+        <span class="tag tag-cyan">#政策</span>
+        <span class="tag tag-blue">#苹果</span>
+        <span class="tag tag-cyan">#中国AI</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>抓取时间：2026年07月20日 13:00 CST</p>
+    <p>信息来源：TechCrunch · The Verge · AP News · Reuters · Bloomberg · Yonhap 等权威科技媒体</p>
+    <p style="margin-top:8px">🤖 由 <a href="#">志志AI日报</a> 自动生成 · 点击卡片跳转原文</p>
+  </div>
+
+</div>
+
+<script>
+  const filterBar = document.getElementById('filterBar');
+  const cards = document.querySelectorAll('.card');
+
+  filterBar.addEventListener('click', (e) => {
+    const tagEl = e.target.closest('.filter-tag');
+    if (!tagEl) return;
+
+    // Update active
+    filterBar.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+    tagEl.classList.add('active');
+
+    const tag = tagEl.dataset.tag;
+
+    cards.forEach(card => {
+      if (tag === 'all') {
+        card.classList.remove('hidden');
+      } else {
+        const cardTags = card.dataset.tags.split(' ');
+        card.classList.toggle('hidden', !cardTags.includes(tag));
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

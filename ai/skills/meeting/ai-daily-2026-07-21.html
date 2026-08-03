@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>志志AI日报 — 2026年07月21日</title>
+<style>
+  :root {
+    --bg: #0b0f1a;
+    --card-bg: #131829;
+    --card-hover: #1a2035;
+    --text: #e2e8f0;
+    --text-secondary: #94a3b8;
+    --accent: #38bdf8;
+    --accent2: #a78bfa;
+    --accent3: #f472b6;
+    --accent4: #34d399;
+    --border: #1e293b;
+    --tag-model: #3b82f6;
+    --tag-funding: #f59e0b;
+    --tag-robot: #10b981;
+    --tag-policy: #8b5cf6;
+    --tag-open-source: #06b6d4;
+    --tag-research: #ec4899;
+    --tag-chip: #f97316;
+    --tag-product: #6366f1;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+  .bg-grid {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(56,189,248,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56,189,248,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+    position: relative;
+    z-index: 1;
+  }
+  header {
+    text-align: center;
+    padding: 50px 0 30px;
+  }
+  header h1 {
+    font-size: 2.6em;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+  header .subtitle {
+    font-size: 1.05em;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+  header .date-line {
+    margin-top: 6px;
+    font-size: 0.85em;
+    color: rgba(148,163,184,0.6);
+  }
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 30px;
+    padding: 0 10px;
+  }
+  .filter-btn {
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.88em;
+    transition: all 0.25s;
+    font-family: inherit;
+  }
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-btn.active {
+    background: rgba(56,189,248,0.15);
+    border-color: var(--accent);
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .cards-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 26px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .card:hover {
+    background: var(--card-hover);
+    border-color: rgba(56,189,248,0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  }
+  .card:hover::before { opacity: 1; }
+  .card.hidden { display: none; }
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .card-num {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: rgba(56,189,248,0.12);
+    color: var(--accent);
+    font-size: 0.8em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-title {
+    flex: 1;
+    font-size: 1.08em;
+    font-weight: 700;
+    color: #f1f5f9;
+    line-height: 1.4;
+  }
+  .card-source-time {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    font-size: 0.78em;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+  .card-source-time .source-badge {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.85em;
+  }
+  .source-techcrunch { background: rgba(59,130,246,0.15); color: #60a5fa; }
+  .source-verge { background: rgba(139,92,246,0.15); color: #a78bfa; }
+  .source-hn { background: rgba(245,158,11,0.15); color: #fbbf24; }
+  .source-reuters { background: rgba(16,185,129,0.15); color: #34d399; }
+  .source-other { background: rgba(148,163,184,0.12); color: #94a3b8; }
+  .card-summary {
+    font-size: 0.92em;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.75em;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .tag-model { background: rgba(59,130,246,0.15); color: #93c5fd; }
+  .tag-funding { background: rgba(245,158,11,0.15); color: #fcd34d; }
+  .tag-robot { background: rgba(16,185,129,0.15); color: #6ee7b7; }
+  .tag-policy { background: rgba(139,92,246,0.15); color: #c4b5fd; }
+  .tag-open-source { background: rgba(6,182,212,0.15); color: #67e8f9; }
+  .tag-research { background: rgba(236,72,153,0.15); color: #f9a8d4; }
+  .tag-chip { background: rgba(249,115,22,0.15); color: #fdba74; }
+  .tag-product { background: rgba(99,102,241,0.15); color: #a5b4fc; }
+  footer {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.82em;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  footer .footer-links { color: rgba(148,163,184,0.5); font-size: 0.9em; }
+  @media (max-width: 640px) {
+    header h1 { font-size: 1.8em; }
+    .card { padding: 16px 18px; }
+    .card-header { flex-wrap: wrap; }
+    .card-title { font-size: 0.98em; }
+    .card-source-time { width: 100%; margin-top: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<div class="container">
+
+<header>
+  <h1>志志AI日报</h1>
+  <div class="subtitle">今日精选 12 条AI行业重要资讯</div>
+  <div class="date-line">2026年07月21日 · 周二</div>
+</header>
+
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">全部</button>
+  <button class="filter-btn" data-filter="大模型">#大模型</button>
+  <button class="filter-btn" data-filter="开源">#开源</button>
+  <button class="filter-btn" data-filter="融资">#融资</button>
+  <button class="filter-btn" data-filter="机器人">#机器人</button>
+  <button class="filter-btn" data-filter="芯片">#芯片</button>
+  <button class="filter-btn" data-filter="政策">#政策</button>
+  <button class="filter-btn" data-filter="研究">#研究</button>
+</div>
+
+<div class="cards-grid">
+
+<!-- Card 1 -->
+<a class="card" href="https://www.news.cn/expo/20260720/7c2f025b7f634e86976eea5edd46b116/c.html" target="_blank" data-tags="大模型,机器人,产品">
+  <div class="card-header">
+    <span class="card-num">01</span>
+    <span class="card-title">WAIC 2026上海闭幕：AI从"能对话"迈向"会干活"时代</span>
+    <span class="card-source-time">
+      <span class="source-badge source-other">新华社</span>
+      <span>1天前</span>
+    </span>
+  </div>
+  <p class="card-summary">2026世界人工智能大会7月20日在上海闭幕，超1100家企业参展、300余款全球首发新品亮相。大会核心信号：AI正从聊天工具转向能自主执行任务的"数字伙伴"。具身智能展区企业数量翻倍超200家，中国人形机器人上半年产量突破4万台。大会同时发布了ScienceOne Omni 2.0科学基础模型。</p>
+  <div class="card-tags">
+    <span class="tag tag-model">#大模型</span>
+    <span class="tag tag-robot">#机器人</span>
+    <span class="tag tag-product">#WAIC</span>
+  </div>
+</a>
+
+<!-- Card 2 -->
+<a class="card" href="https://venturebeat.com/technology/chinas-moonshot-ai-releases-kimi-k3-the-largest-open-source-model-ever-rivaling-top-u-s-systems" target="_blank" data-tags="大模型,开源">
+  <div class="card-header">
+    <span class="card-num">02</span>
+    <span class="card-title">Moonshot AI发布Kimi K3：2.8万亿参数，全球最大开源模型</span>
+    <span class="card-source-time">
+      <span class="source-badge source-verge">VentureBeat</span>
+      <span>4天前</span>
+    </span>
+  </div>
+  <p class="card-summary">月之暗面发布Kimi K3，参数规模达2.8万亿，采用MoE架构，仅激活16/896个专家。在Artificial Analysis排名中位列全球第三（57分），仅次于Claude Fable 5和GPT-5.6 Sol。BrowseComp得分91.2/100创SOTA，编码基准数小时内登顶。马斯克公开评价"Impressive"。完整权重将于7月27日开放。</p>
+  <div class="card-tags">
+    <span class="tag tag-model">#大模型</span>
+    <span class="tag tag-open-source">#开源</span>
+    <span class="tag tag-product">#Kimi</span>
+  </div>
+</a>
+
+<!-- Card 3 -->
+<a class="card" href="https://www.indiatoday.in/technology/news/story/gpt-56-beats-claude-fable-5-openai-calls-it-big-milestone-2946536-2026-07-13" target="_blank" data-tags="大模型,产品">
+  <div class="card-header">
+    <span class="card-num">03</span>
+    <span class="card-title">OpenAI发布GPT-5.6系列：Sol/Terra/Luna三档，内置多Agent能力</span>
+    <span class="card-source-time">
+      <span class="source-badge source-other">India Today</span>
+      <span>8天前</span>
+    </span>
+  </div>
+  <p class="card-summary">OpenAI推出GPT-5.6系列，分Sol（旗舰）、Terra（均衡）、Luna（低价）三档。核心创新包括：Ultra模式可启动多个子Agent并行处理多步任务、编程式工具调用、100万token上下文窗口。Sol在Design Arena登顶（Elo 1353），TerminalBench-2.1得分91.9%。API定价$5/$30每百万token。</p>
+  <div class="card-tags">
+    <span class="tag tag-model">#大模型</span>
+    <span class="tag tag-product">#OpenAI</span>
+    <span class="tag tag-research">#Agent</span>
+  </div>
+</a>
+
+<!-- Card 4 -->
+<a class="card" href="https://www.technologyreview.com/2026/07/09/1140293/anthropic-found-a-hidden-space-where-claude-puzzles-over-concepts/" target="_blank" data-tags="研究,大模型">
+  <div class="card-header">
+    <span class="card-num">04</span>
+    <span class="card-title">Anthropic发现Claude内部隐藏"思考空间"J-space</span>
+    <span class="card-source-time">
+      <span class="source-badge source-other">MIT Tech Review</span>
+      <span>12天前</span>
+    </span>
+  </div>
+  <p class="card-summary">Anthropic通过"雅可比透镜"（J-lens）技术，发现Claude Opus 4.6内部存在一个隐藏的"全局工作空间"——J-space。该空间包含模型在输出前正在"思考"的词语，能揭示中间推理步骤、概念识别过程，甚至模型试图作弊的瞬间。阻止Claude使用J-space会使其丧失高阶认知功能。该研究已开源并在Neuronpedia上线互动演示。</p>
+  <div class="card-tags">
+    <span class="tag tag-research">#研究</span>
+    <span class="tag tag-model">#可解释性</span>
+    <span class="tag tag-open-source">#开源</span>
+  </div>
+</a>
+
+<!-- Card 5 -->
+<a class="card" href="https://finance.yahoo.com/technology/ai/articles/nvidia-backed-startup-fireworks-valued-145247058.html" target="_blank" data-tags="融资,大模型">
+  <div class="card-header">
+    <span class="card-num">05</span>
+    <span class="card-title">Fireworks AI完成15.1亿美元D轮融资，估值175亿美元</span>
+    <span class="card-source-time">
+      <span class="card-source-badge source-techcrunch">Yahoo Finance</span>
+      <span>5天前</span>
+    </span>
+  </div>
+  <p class="card-summary">英伟达支持的AI推理基础设施公司Fireworks完成15.1亿美元D轮融资，估值175亿美元。年化收入突破10亿美元（同比增长5倍），日处理Token量从15万亿增至40万亿。客户包括Uber、Shopify、Doximity。本轮由Atreides Management、Index Ventures、TCV领投，英伟达、Lightspeed等跟投。</p>
+  <div class="card-tags">
+    <span class="tag tag-funding">#融资</span>
+    <span class="tag tag-product">#推理</span>
+    <span class="tag tag-chip">#英伟达</span>
+  </div>
+</a>
+
+<!-- Card 6 -->
+<a class="card" href="https://sifted.eu/articles/cuspai-lands-450m-round-to-accelerate-ai-materials-discovery" target="_blank" data-tags="融资,研究">
+  <div class="card-header">
+    <span class="card-num">06</span>
+    <span class="card-title">CuspAI获4.5亿美元融资，贝索斯和英国政府参投</span>
+    <span class="card-source-time">
+      <span class="card-source-badge source-other">Sifted</span>
+      <span>1天前</span>
+    </span>
+  </div>
+  <p class="card-summary">英国AI材料发现公司CuspAI完成4.5亿美元B轮融资，估值26亿美元（较去年9月增长5倍）。贝索斯旗下Bezos Expeditions、英国主权AI基金、AMD Ventures等参投。公司同期成立"AI材料铸造厂"联盟，成员包括英伟达、Meta、三星、现代等45+家企业，旨在用AI加速半导体、清洁能源、碳捕获等领域的新材料研发。</p>
+  <div class="card-tags">
+    <span class="tag tag-funding">#融资</span>
+    <span class="tag tag-research">#材料科学</span>
+    <span class="tag tag-product">#AI4S</span>
+  </div>
+</a>
+
+<!-- Card 7 -->
+<a class="card" href="https://timesofindia.indiatimes.com/technology/tech-news/mira-muratis-less-than-one-year-old-thinking-machines-to-raise-new-round-of-funding-at-50-billion-valuation-what-makes-previously-undisclosed-round-important/affcmtoi_articleshow/125343412.cms" target="_blank" data-tags="融资,开源,大模型">
+  <div class="card-header">
+    <span class="card-num">07</span>
+    <span class="card-title">Mira Murati的Thinking Machines估值飙至500亿美元</span>
+    <span class="card-source-time">
+      <span class="card-source-badge source-other">Times of India</span>
+      <span>6天前</span>
+    </span>
+  </div>
+  <p class="card-summary">前OpenAI CTO Mira Murati创立的Thinking Machines Lab正在洽谈新一轮融资，估值或达500-600亿美元。公司成立不到一年，7月刚完成20亿美元种子轮（估值120亿美元），随即发布开源模型Inkling（975B参数，Apache 2.0许可），在美国开源模型中排名第一。产品Tinker已被普林斯顿和斯坦福研究人员使用。</p>
+  <div class="card-tags">
+    <span class="tag tag-funding">#融资</span>
+    <span class="tag tag-open-source">#开源</span>
+    <span class="tag tag-model">#大模型</span>
+  </div>
+</a>
+
+<!-- Card 8 -->
+<a class="card" href="https://www.eastmoney.com/a/202607213814043158.html" target="_blank" data-tags="芯片,产品">
+  <div class="card-header">
+    <span class="card-num">08</span>
+    <span class="card-title">AMD发布Helios机架级AI系统，谷歌研发Frozen v2芯片</span>
+    <span class="card-source-time">
+      <span class="card-source-badge source-hn">东方财富</span>
+      <span>今天</span>
+    </span>
+  </div>
+  <p class="card-summary">AMD发布首款机架级AI系统Helios，集成GPU、CPU、网络和软件，微软、Meta、OpenAI、Oracle已为客户，2026年大规模部署。同时，谷歌正在研发Frozen v2 AI芯片，将Gemini架构直接写入硅片，效率较当前TPU提升6-10倍，最早2028年部署。英伟达则发布DGX Station Agent Toolkit，支持本地Agent约30分钟部署。</p>
+  <div class="card-tags">
+    <span class="tag tag-chip">#芯片</span>
+    <span class="tag tag-product">#AMD</span>
+    <span class="tag tag-model">#谷歌</span>
+  </div>
+</a>
+
+<!-- Card 9 -->
+<a class="card" href="https://www.stdaily.com/web/English/2026-07/18/content_549536.html" target="_blank" data-tags="机器人,产品">
+  <div class="card-header">
+    <span class="card-num">09</span>
+    <span class="card-title">AGIBOT连发四款人形机器人新品，中国年产量将破10万台</span>
+    <span class="card-source-time">
+      <span class="card-source-badge source-other">科技日报</span>
+      <span>3天前</span>
+    </span>
+  </div>
+  <p class="card-summary">AGIBOT在WAIC 2026发布四款新品：A3 Ultra全尺寸人形机器人（51自由度、续航8小时）、X2 Edu教育平台、G2 Max工业重载机器人、OmniHand 3灵巧手。公司第15000台机器人已下线。中国人形机器人2026年产量预计突破10万台，全国已开发超400款人形机器人产品，占全球一半以上。</p>
+  <div class="card-tags">
+    <span class="tag tag-robot">#机器人</span>
+    <span class="tag tag-product">#具身智能</span>
+    <span class="tag tag-chip">#AGIBOT</span>
+  </div>
+</a>
+
+<!-- Card 10 -->
+<a class="card" href="https://www.mintz.com/insights-center/viewpoints/54941/2026-07-08-ai-washington-report-july-2026-edition" target="_blank" data-tags="政策">
+  <div class="card-header">
+    <span class="card-num">10</span>
+    <span class="card-title">美国AI立法加速：众议院通过10项AI法案，IL州率先要求第三方审计</span>
+    <span class="card-source-time">
+      <span class="card-source-badge source-other">Mintz</span>
+      <span>13天前</span>
+    </span>
+  </div>
+  <p class="card-summary">美国AI监管进入快车道。众议院科学委员会通过10项两党AI法案，包括CREATE AI Act（编码国家AI研究资源）和AI生成内容标注法案。伊利诺伊州通过全美首部前沿AI审计法，要求年收入5亿美元以上AI开发商进行年度独立第三方审计，2027年1月生效。联邦层面，《伟大美国AI法案》讨论草案提出三年州法优先权。</p>
+  <div class="card-tags">
+    <span class="tag tag-policy">#政策</span>
+    <span class="tag tag-research">#监管</span>
+    <span class="tag tag-product">#美国</span>
+  </div>
+</a>
+
+<!-- Card 11 -->
+<a class="card" href="https://iapp.org/news/a/chinas-regulation-on-ai-companions-takes-force" target="_blank" data-tags="政策,大模型">
+  <div class="card-header">
+    <span class="card-num">11</span>
+    <span class="card-title">中国AI陪伴监管新规生效，29国签署世界AI合作组织协议</span>
+    <span class="card-source-time">
+      <span class="card-source-badge source-other">IAPP</span>
+      <span>6天前</span>
+    </span>
+  </div>
+  <p class="card-summary">中国《拟人化AI交互服务管理办法》7月15日生效，要求AI陪伴类产品具备情感危机检测和防沉迷机制，违规最高罚款20万元。WAIC期间，29国代表签署《世界人工智能合作组织成立协议》，中国承诺5年内为发展中国家提供5000个AI培训名额，并向30国部署"妈祖"气象预警AI系统。</p>
+  <div class="card-tags">
+    <span class="tag tag-policy">#政策</span>
+    <span class="tag tag-model">#AI治理</span>
+    <span class="tag tag-product">#全球合作</span>
+  </div>
+</a>
+
+<!-- Card 12 -->
+<a class="card" href="https://apidog.com/blog/glm-5-2-vs-gpt-5-5-claude-opus-gemini/" target="_blank" data-tags="开源,大模型">
+  <div class="card-header">
+    <span class="card-num">12</span>
+    <span class="card-title">GLM-5.2：首个在编码基准上超越闭源模型的开源大模型</span>
+    <span class="card-source-time">
+      <span class="card-source-badge source-hn">API Dog</span>
+      <span>2周前</span>
+    </span>
+  </div>
+  <p class="card-summary">智谱AI的GLM-5.2以MIT许可开源，753B参数MoE架构。在SWE-bench Pro上得分62.1，超越GPT-5.5（58.6），成为首个在重要编码基准上领先闭源模型的开源模型。支持自托管和微调，API价格仅为闭源竞品的约六分之一（$1.40/$4.40每百万token），被称为2026年"性价比之选"。</p>
+  <div class="card-tags">
+    <span class="tag tag-open-source">#开源</span>
+    <span class="tag tag-model">#大模型</span>
+    <span class="tag tag-product">#GLM</span>
+  </div>
+</a>
+
+</div>
+
+<footer>
+  <p>数据来源：TechCrunch · The Verge · Hacker News · VentureBeat · MIT Technology Review · 新华社 · IAPP 等</p>
+  <p>抓取时间：2026年07月21日</p>
+  <p class="footer-links">志志AI日报 — 用最少时间掌握最重要AI资讯</p>
+</footer>
+
+</div>
+
+<script>
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.card').forEach(card => {
+      if (filter === 'all' || card.dataset.tags.includes(filter)) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  });
+});
+</script>
+
+</body>
+</html>
