@@ -78,3 +78,9 @@ React.ChangeEvent<> 泛指内部的需要用到的类型， 事件最重要的
         effect 作用
         副作用? 太多的生命周期，或状态改变
         副带 存储一下， 清除垃圾.... 
+
+        - useEffect 卸载前的副作用
+        组件完整生命周期， willUnmount
+        return ()=>{ }
+        定时器，  移除 clearInterval(timer)
+        内存泄漏  这个内存永远没办法回收 
