@@ -4,7 +4,8 @@ import{
 }from 'react';
 import{
   //location.hash
-  HashRouter as Router,//前端路由 #/ hashchange
+  //前端路由有两种， HashRouter, BrowserRouter
+  BrowserRouter as Router,//前端路由 #/ hashchange
   Routes,//路由配置数组 都是组件
   Route , //
   Navigate, // 重定向组件
@@ -23,7 +24,9 @@ const NotFound=lazy(()=>import('./pages/NotFound'));
 const Products=lazy(()=>import('./Products'));
 const ProductDetail=lazy(()=>import('./Products/ProductDetail'));
 const NewProduct=lazy(()=>import('./Products/New'));
-
+const Login=lazy(()=>import('./pages/Login'));
+const ProtectRoute=lazy(()=>import('./ProtectRoute'));
+const Pay=lazy(()=>import('./pages/Pay'));
 const App=()=>{
   return (
     <>
@@ -47,10 +50,21 @@ const App=()=>{
           </Route>
 
           {/* 重定向：旧路径跳转到新路径 */}
+          {/* 有个活动game 100万  要有跳转功能   /result 活动结束了
+          /home 首页， 重定向到/ 
+          /user/:id 登录? 送到 /login  登录后送回  */}
           <Route path="/old-path" element={
-            <Navigate replace to="/products/new" />
+            <Navigate replace to="/new-path" />
           } />
-
+          <Route path="/login" element={<Login />} />
+          <Route path="/pay" element={
+            //门禁保安
+            //Pay 要进的房间
+            <ProtectRoute >
+             {/* children 用来定制化组件 */}
+            <Pay />
+                </ProtectRoute>     
+          }/>
           {/* * 贪婪匹配所有， 最后404 兜底 */}
           <Route path="*" element={<NotFound />} />
         </Routes>

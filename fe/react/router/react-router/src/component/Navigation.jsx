@@ -12,6 +12,8 @@ function Navigation() {
         <li><Link to="/user/123">小家</Link></li>
         <li><Link to="/products/123">产品详情</Link></li>
         <li><Link to="/products/new">新产品</Link></li>
+        {/* <li><Link to="/login">登录</Link></li> */}
+        <li><Link to="/pay">支付</Link></li>
       </ul>
     </nav>
   );
