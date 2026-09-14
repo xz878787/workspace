@@ -1,0 +1,24 @@
+﻿%%{init: {'flowchart': {'curve': 'linear'}}}%%
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	retrieve(retrieve)
+	evaluate(evaluate)
+	web_search(web_search)
+	rag_generate(rag_generate)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> retrieve;
+	rag_generate --> __end__;
+	retrieve --> evaluate;
+	web_search --> evaluate;
+	evaluate -.-> web_search;
+	evaluate -.-> rag_generate;
+	classDef default fill:#f2f0ff,line-height:1.2;
+	classDef first fill-opacity:0;
+	classDef last fill:#bfb6fc;
+
+[2026-09-12T11:15:34.953Z] Milvus-sdk-node [33mwarn[39m: No port specified in address "https://in03-c6c7c24cc8a930b.serverless.ali-cn-hangzhou.cloud.zilliz.com.cn". Milvus default port is 19530. If you are not using a proxy, consider specifying the port explicitly, e.g. "in03-c6c7c24cc8a930b.serverless.ali-cn-hangzhou.cloud.zilliz.com.cn:19530".
+[2026-09-12T11:15:34.966Z] Milvus-sdk-node [33mwarn[39m: No port specified in address "https://in03-c6c7c24cc8a930b.serverless.ali-cn-hangzhou.cloud.zilliz.com.cn". Milvus default port is 19530. If you are not using a proxy, consider specifying the port explicitly, e.g. "in03-c6c7c24cc8a930b.serverless.ali-cn-hangzhou.cloud.zilliz.com.cn:19530".
+集合已加载;
+----RETRIEVE_LOCAL----
+本地召回5条
+---EVALUATE_LOCAL_CONTEXT----
