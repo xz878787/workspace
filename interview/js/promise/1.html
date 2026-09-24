@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // const streetCarsPromise= fetch('http://data.ratp.fr/api/datasets/1.0/search/?q=paris');
+        // console.log(streetCarsPromise);
+    const getStory = async () =>
+     fetch('https://jsonplaceholder.typicode.com/posts');
+     const story = async () =>
+     fetch('https://randomuser.me/api/?results=3');
+    async function main(){
+        // 不存在依赖关系，可以并行执行，提高效率
+        // const story= await getStory();
+        // const  ratp= await getRatp();
+        //并发的效果
+        // 参数是promise 数组
+        // 不管谁先解决，谁后， resolve 的结果会按promise 数组
+        // 顺序来收集。 最后一个promise resolve 之后， 停下来
+//-------------------------------
+        // const res = await Promise.all([getStory(), story()]);
+        // console.log(res);
+        // const jsonPromises = res.map (item => item.json());
+        // const result = await Promise.all(jsonPromises);
+        // console.log(result);
+    
+
+Promise.all([getStory(), story()])
+.then(response => {
+    return Promise.all(response.map(item => item.json()));
+})
+.catch(err => {
+    console.log(response);
+})
+
+
+
+}
+    main();
+    </script>
+</body>
+</html>
