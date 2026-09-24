@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3列布局 - grid</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { font: 16px/1.6 system-ui, sans-serif; }
+
+    /* display:grid 开启一个新的 BFC */
+    .layout {
+      display: grid;
+      grid-template-columns: 200px 1fr 300px; /* 左右定宽，中间 1fr 自适应 */
+      height: 100%;
+    }
+    .left    { grid-column: 1; background: #cf5e5e; }
+    .content { grid-column: 2; background: #eee; }
+    .right   { grid-column: 3; background: #5e9acf; }
+    .left, .content, .right { padding: 16px; }
+  </style>
+</head>
+<body>
+  <!-- main 在 DOM 中最先加载，用 grid-column 指定视觉列位置 -->
+  <div class="layout">
+    <main class="content">Main 中间自适应</main>
+    <aside class="left">Left 200px</aside>
+    <aside class="right">Right 300px</aside>
+  </div>
+</body>
+</html>

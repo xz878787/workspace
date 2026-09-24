@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3列布局 - flex</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { font: 16px/1.6 system-ui, sans-serif; }
+
+    /* display:flex 开启一个新的 BFC，三列成为独立的格式化上下文 */
+    .layout {
+      display: flex;
+      height: 100%;
+    }
+    .sidebar {
+      width: 200px;
+    }
+    .left {
+      background: #cf5e5e;
+      order: 1;   /* 视觉上放最左 */
+    }
+    .content {
+      flex: 1;    /* 中间自适应，占满剩余空间 */
+      background: #eee;
+      order: 2;   /* 视觉上放中间 */
+    }
+    .right {
+      width: 300px;
+      background: #5e9acf;
+      order: 3;   /* 视觉上放最右 */
+    }
+    .sidebar, .content { padding: 16px; }
+  </style>
+</head>
+<body>
+  <!-- main 在 DOM 中最先加载，中间先渲染，最快看到最有效的内容 -->
+  <div class="layout">
+    <main class="content">Main 中间自适应</main>
+    <aside class="sidebar left">Left 200px</aside>
+    <aside class="sidebar right">Right 300px</aside>
+  </div>
+</body>
+</html>
